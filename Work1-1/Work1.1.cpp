@@ -39,6 +39,4 @@ void move(int size, char a, char b, char c) {
 根据上文的梳理 可以抽象出一个移动的函数
 move(int n,char a,char b,char c)
 一共移动n个，从a->b借助c
-
-
 */
