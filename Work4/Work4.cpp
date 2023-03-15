@@ -146,26 +146,25 @@ void RunTask() {
 		cin >> data[i];
 	}
 
-	int num, time = -1;
 	Queue* queue = new Queue(DataSize);
 	for (int i = 0; i < DataSize; i++)
 	{
-		if (queue->isEmpty()) {
-			queue->enqueue(data[i]);
+		if (queue->isEmpty() || data[i]<=queue->getfront()) {
+			queue->enqueue(i);
 		}
 		else {
-			if (i - WindowSize>= 0 && data[i - WindowSize] == queue->getfront())
-				queue->dequeue();
-
-			while (!queue->isEmpty() && data[i] > queue->getfront())
+			while (!queue->isEmpty() && data[i] > data[queue->getfront()])
 			{
 				queue->dequeue();
 			}
-			queue->enqueue(data[i]);
+			queue->enqueue(i);
 		}
 
+		if (i - WindowSize == queue->getfront())
+			queue->dequeue();
+
 		if (i + 1 >= WindowSize)
-			cout << queue->getfront() << "  ";
+			cout << data[queue->getfront()] << "  ";
 
 	}
 	delete queue;
