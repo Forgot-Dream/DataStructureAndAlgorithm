@@ -20,6 +20,7 @@ public:
 	void enqueue(int x);
 	int dequeue();
 	int getfront();//获取队首元素
+	int getrear();
 	void showQueue();
 
 };
@@ -76,6 +77,14 @@ void Queue::enqueue(int x) {
 	queue[rear] = x;
 
 
+}
+
+int Queue::getrear() {
+	if (isEmpty()) {
+		cout << "Queue is empty!" << endl;
+		return -1;
+	}
+	return queue[rear];
 }
 
 int Queue::getfront() {
@@ -149,18 +158,18 @@ void RunTask() {
 	Queue* queue = new Queue(DataSize);
 	for (int i = 0; i < DataSize; i++)
 	{
-		if (queue->isEmpty() || data[i]<=queue->getfront()) {
+		if (queue->isEmpty() || data[i]<=data[queue->getrear()]) {
 			queue->enqueue(i);
 		}
 		else {
-			while (!queue->isEmpty() && data[i] > data[queue->getfront()])
+			while (!queue->isEmpty() && data[i] > data[queue->getrear()])
 			{
 				queue->dequeue();
 			}
 			queue->enqueue(i);
 		}
 
-		if (i - WindowSize == queue->getfront())
+		if (i - WindowSize == queue->getfront())//窗口滑出时候
 			queue->dequeue();
 
 		if (i + 1 >= WindowSize)
